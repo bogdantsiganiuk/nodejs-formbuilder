@@ -1,0 +1,14 @@
+{
+    "type": "mongodb",
+    "host": "localhost",
+    "database": "forms",
+    "name": "default",
+    "synchronize": false,
+    "entities": [
+        "dist/db/models/*.js",
+        "src/db/models/*.ts"
+    ],
+    "cli": {
+        "entitiesDir": "dist/db/models/"
+    }
+}
