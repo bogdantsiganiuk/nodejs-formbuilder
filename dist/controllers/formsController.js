@@ -23,35 +23,30 @@ exports.FormsController = void 0;
 const express = __importStar(require("express"));
 const form_1 = require("../models/form");
 const validator_1 = require("../middleware/validator");
-const formDb_1 = require("../db/models/formDb");
 class FormsController {
-    constructor(repo) {
+    constructor(formService) {
         this.path = '/forms';
         this.router = express.Router();
         this.initRoutes();
-        if (!repo)
-            throw new Error("repository is null");
-        this.repo = repo;
+        if (!formService)
+            throw new Error("FormService is null");
+        this.formService = formService;
     }
     initRoutes() {
         this.router.get(this.path, (req, res) => { this.getAllForms(req, res); });
         this.router.post(this.path, validator_1.validationMiddleware(form_1.Form), (req, res) => { this.createForm(req, res); });
     }
     async getAllForms(req, res) {
-        if (!this)
-            console.log("wtf1");
-        if (!this.repo)
-            console.log("wtf2");
-        const forms = await this.repo.readAll();
+        const forms = await this.formService.getAllForms();
         res.send(forms);
     }
     async createForm(req, res) {
         const data = req.body;
-        const form = new formDb_1.FormDb();
+        const form = new form_1.Form();
         form.formName = data.formName;
         form.formFields = [];
-        form.formFields.push(data.fields);
-        const status = await this.repo.create(form);
+        form.formFields = data.formFields.slice();
+        const status = await this.formService.createNewForm(form);
         if (status) {
             res.status(200);
             res.send('Success');

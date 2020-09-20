@@ -1,10 +1,9 @@
-import { connect } from "../db/db";
 import { FormDb } from "../db/models/formDb";
 import { createConnection, getConnection, Repository } from "typeorm";
 import { AbsRepository } from "./interfaces/absRepository";
 
-export class FormsRepository implements AbsRepository<FormDb>{
-    public repo: Repository<FormDb>;
+export class FormsRepository implements AbsRepository<FormDb>{ // TODO: refactor into a generic MongoDbRepository<T> that uses mongodb as specific imp
+    private repo: Repository<FormDb>;
     constructor(){
         createConnection().then( async () => {
             this.repo = getConnection().getRepository(FormDb);

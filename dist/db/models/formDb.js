@@ -16,6 +16,10 @@ let FormDb = class FormDb extends typeorm_1.BaseEntity {
 __decorate([
     typeorm_1.ObjectIdColumn(),
     __metadata("design:type", String)
+], FormDb.prototype, "id", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
 ], FormDb.prototype, "formName", void 0);
 __decorate([
     typeorm_1.Column(),

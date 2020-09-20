@@ -1,20 +1,19 @@
 import * as express from 'express';
 import { Form } from '../models/form';
-import { FormsRepository } from '../repository/formsRepository';
 import {ControllerInterface} from './controllerInterface'
 import {validationMiddleware} from '../middleware/validator'
-import { FormDb } from '../db/models/formDb';
+import { FormService } from '../services/formService';
 
 export class FormsController implements ControllerInterface {
     public path = '/forms';
     public router = express.Router();
-    private repo: FormsRepository;
+    private formService: FormService;
 
-    constructor(repo: FormsRepository){
+    constructor(formService: FormService){
         this.initRoutes();
-        if(!repo)
-            throw new Error("repository is null");
-        this.repo = repo;
+        if(!formService)
+            throw new Error("FormService is null");
+        this.formService = formService;
     }
 
     private initRoutes(){
@@ -23,17 +22,17 @@ export class FormsController implements ControllerInterface {
     }
 
     private async getAllForms(req: express.Request, res: express.Response)    {
-        const forms = await this.repo.readAll();
+        const forms = await this.formService.getAllForms();
         res.send(forms);
     }
 
     private async createForm(req: express.Request, res: express.Response)    {
         const data = req.body;
-        const form = new FormDb();
+        const form = new Form();
         form.formName = data.formName;
         form.formFields = [];
-        form.formFields.push(data.fields);
-        const status = await this.repo.create(form);
+        form.formFields = data.formFields.slice();
+        const status = await this.formService.createNewForm(form);
         if(status){
             res.status(200);
             res.send('Success');

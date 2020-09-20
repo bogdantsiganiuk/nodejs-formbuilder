@@ -1,5 +1,5 @@
 export class FormField {
-    public id: number;
+    public id: string;
     public fieldLabel: string;
     public inputName: string;
     public inputType: FieldType;

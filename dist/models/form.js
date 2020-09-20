@@ -20,6 +20,6 @@ __decorate([
 __decorate([
     class_validator_1.IsArray(),
     __metadata("design:type", Array)
-], Form.prototype, "fields", void 0);
+], Form.prototype, "formFields", void 0);
 exports.Form = Form;
 //# sourceMappingURL=form.js.map
