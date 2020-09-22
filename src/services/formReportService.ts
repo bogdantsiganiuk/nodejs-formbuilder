@@ -1,24 +1,18 @@
 import { FormSubmissionDb } from "../db/models/formSubmissionDb";
 import { FormSubmission } from "../models/formSubmission";
-import { AbsRepository } from "../repository/interfaces/absRepository";
+import { FormsRepository } from "../repository/formsRepository";
+import { FormSubmissionRepository } from "../repository/formSubmissinRepository";
 import { FormSubmissionMapper } from "../utils/formSubmissionMapper";
 
-export class FormSubmissionService{
-    private repo: AbsRepository<FormSubmissionDb>;
 
-    constructor(repo: AbsRepository<FormSubmissionDb>){
-        if(!repo){
+export class FormReportService {
+    private submissionsRepo: FormSubmissionRepository;
+
+    constructor(submissionsRepo: FormSubmissionRepository){
+        if(!submissionsRepo){
             throw new Error("repo is null");
         }
-        this.repo = repo;
-    }
-
-    public async createNewSubmission(submission: FormSubmission) : Promise<boolean>{
-        if(!submission){
-            throw new Error("Submission is null");
-        }
-
-        return await this.repo.create(FormSubmissionMapper.MapFormSubmission(submission));
+        this.submissionsRepo = submissionsRepo;
     }
 
     public async getFormSubmissionAmount(id: string): Promise<number>{
@@ -38,7 +32,7 @@ export class FormSubmissionService{
         const submissionToSearchFor = new FormSubmissionDb();
         submissionToSearchFor.formId = id;
 
-        const specificFormSubmissions = await this.repo.findAll(submissionToSearchFor);
+        const specificFormSubmissions = await this.submissionsRepo.findAll(submissionToSearchFor);
 
         if(!specificFormSubmissions){
             throw new Error("submissions returned as null");
@@ -46,5 +40,4 @@ export class FormSubmissionService{
 
         return specificFormSubmissions.map(item => FormSubmissionMapper.MapFormSubmissionDb(item));
     }
-
 }

@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const bodyParser = __importStar(require("body-parser"));
 const db_1 = require("./db/db");
 const errorMiddleware_1 = require("./middleware/errorMiddleware");
@@ -35,6 +36,7 @@ class App {
         this.initControllers(controllers);
     }
     initMiddleware() {
+        this.expressApp.use(cors_1.default());
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(errorMiddleware_1.errorMiddleware);
     }

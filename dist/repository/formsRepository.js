@@ -36,6 +36,9 @@ class FormsRepository {
     delete(id) {
         throw new Error("Method not implemented.");
     }
+    findAll(item) {
+        throw new Error("Method not implemented.");
+    }
 }
 exports.FormsRepository = FormsRepository;
 //# sourceMappingURL=formsRepository.js.map

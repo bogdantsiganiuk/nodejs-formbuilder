@@ -22,7 +22,9 @@ export class FormSubmissionController implements ControllerInterface{
     }
 
     private initRoutes(){
-        this.router.post(this.path, validationMiddleware(FormSubmission), (req,res) => {this.createFormSubmission(req,res)});
+        this.router.post(this.path , validationMiddleware(FormSubmission), (req,res) => {this.createFormSubmission(req,res)});
+        this.router.get(this.path + '/:formId', (req,res) => {this.getFormSubmissions(req,res)});
+
     }
 
     private async createFormSubmission(req: express.Request, res: express.Response){
@@ -39,6 +41,27 @@ export class FormSubmissionController implements ControllerInterface{
         else{
             res.status(500);
             res.send('Creation failed, internal error');
+        }
+
+    }
+
+    private async getFormSubmissions(req: express.Request, res: express.Response)    {
+        if(!req.params.formId){
+            throw new Error("formId is not specified")
+        }
+
+        const submissions = await this.service.getAllFormSubmissions(req.params.formId);
+        if(!submissions){
+            throw new Error("Submissions returned null")
+        }
+        res.status(200);
+        if(submissions.length === 0){
+            res.send('No submissions found for FormId:' + req.params.formId);
+        }
+        else{
+            const count = submissions.length.toString();
+            res.header('X-Total-Count', count);
+            res.send(submissions);
         }
 
     }

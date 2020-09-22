@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import * as bodyParser from 'body-parser';
 import {connect} from './db/db'
 import { Form } from './models/form';
@@ -20,8 +21,9 @@ export class App {
     }
 
     private initMiddleware() {
+        this.expressApp.use(cors());
         this.expressApp.use(bodyParser.json());
-        this.expressApp.use(errorMiddleware)
+        this.expressApp.use(errorMiddleware);
     }
 
     private initControllers(controllers: ControllerInterface[]) {

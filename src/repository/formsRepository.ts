@@ -12,6 +12,7 @@ export class FormsRepository implements AbsRepository<FormDb>{ // TODO: refactor
     }
 
 
+
     create(item: FormDb): Promise<boolean> {
         if(!this.repo) {
             this.repo = getConnection().getRepository(FormDb);
@@ -38,6 +39,9 @@ export class FormsRepository implements AbsRepository<FormDb>{ // TODO: refactor
         throw new Error("Method not implemented.");
     }
     delete(id: string): Promise<boolean> {
+        throw new Error("Method not implemented.");
+    }
+    findAll(item: FormDb): Promise<FormDb[]> {
         throw new Error("Method not implemented.");
     }
 

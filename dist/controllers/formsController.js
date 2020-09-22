@@ -34,7 +34,7 @@ class FormsController {
     }
     initRoutes() {
         this.router.get(this.path, (req, res) => { this.getAllForms(req, res); });
-        this.router.post(this.path, validator_1.validationMiddleware(form_1.Form), (req, res) => { this.createForm(req, res); });
+        this.router.post(this.path + '/create', validator_1.validationMiddleware(form_1.Form), (req, res) => { this.createForm(req, res); });
     }
     async getAllForms(req, res) {
         const forms = await this.formService.getAllForms();
