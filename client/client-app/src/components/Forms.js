@@ -14,9 +14,7 @@ import "../App.css";
             .then(response => response.json())
             .then(json => {
                 this.setState({
-                    data: json,
-                    loading: false
-                });
+                    data: json});
                 console.log(json);
             });
      }

@@ -40,26 +40,26 @@ class App extends React.Component {
     <div className="App">
       {this.state.page === 'main' ? 
         <div className="mainPageContainer">
-      <div> <a onClick={this.onCreateFormClick}>Click here to create new form!</a></div>
+      <a onClick={this.onCreateFormClick} className="text-link">Click here to create new form!</a>
       <Forms onCreateNewFormSubmissionClick={this.onCreateNewFormSubmissionClick}
              onFormSubmissionsClick={this.onFormSubmissionsClick} />
       </div>
      : 
       this.state.page === 'create' ? 
-        <div>
+        
           <Create onCreatedFormClick={this.onCreatedFormClick} />
-        </div>
+        
         
       :
       this.state.page === 'submit' ? 
-        <div>
+        
           <Submit onSubmittedFormClick={this.onCreatedFormClick} formName={this.state.formName} formFields={this.state.formFields} formId={this.state.formId} />
-        </div>
+        
       :
       this.state.page === 'responses' ? 
-        <div>
+        
           <ResponseList formId={this.state.formId} />
-        </div>
+        
       :
         <div/>
       }

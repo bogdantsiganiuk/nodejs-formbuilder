@@ -20,7 +20,7 @@ class Submit extends React.Component{
     }
 
     renderForm(){
-        return this.state.formFields.map((field, idx) => <li key={'field' + idx}><label className="fieldName">{field.fieldName}</label><input data-id={idx} name={field.inputName} type={this.convertFieldType(field.fieldType)}></input></li>)
+        return this.state.formFields.map((field, idx) => <li key={'field' + idx}><label className="inputName">{field.inputName}</label><input data-id={idx} name={field.inputName} type={this.convertFieldType(field.fieldType)}></input></li>)
     }
 
     handleChange(e){
@@ -48,20 +48,20 @@ class Submit extends React.Component{
     convertFieldType(number){
         let type = "";
         switch(number){
-            case 1:
+            case "1":
                 type="text";
                 break;
-            case 2:
-                type="date"
+            case "2":
+                type="date";
                 break;
-            case 3:
-                type="email"
+            case "3":
+                type="email";
                 break;
-            case 4:
-                type="tel"
+            case "4":
+                type="tel";
                 break;
-            case 5:
-                type="number"
+            case "5":
+                type="number";
                 break;
         }
         return type;

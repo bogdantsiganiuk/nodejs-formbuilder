@@ -21,22 +21,22 @@ export class FormSubmissionService{
         return await this.repo.create(FormSubmissionMapper.MapFormSubmission(submission));
     }
 
-    public async getFormSubmissionAmount(id: string): Promise<number>{
-        if(!id){
+    public async getFormSubmissionAmount(formId: string): Promise<number>{
+        if(!formId){
             throw new Error("form is null");
         }
 
-        const specificFormSubmissions = await this.getAllFormSubmissions(id);
+        const specificFormSubmissions = await this.getAllFormSubmissions(formId);
 
         return specificFormSubmissions.length;
     }
 
-    public async getAllFormSubmissions(id: string): Promise<FormSubmission[]>{
-        if(!id){
+    public async getAllFormSubmissions(formId: string): Promise<FormSubmission[]>{
+        if(!formId){
             throw new Error("form is null");
         }
         const submissionToSearchFor = new FormSubmissionDb();
-        submissionToSearchFor.formId = id;
+        submissionToSearchFor.formId = formId;
 
         const specificFormSubmissions = await this.repo.findAll(submissionToSearchFor);
 

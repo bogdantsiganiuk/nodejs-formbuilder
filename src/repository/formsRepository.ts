@@ -13,11 +13,11 @@ export class FormsRepository implements AbsRepository<FormDb>{ // TODO: refactor
 
 
 
-    create(item: FormDb): Promise<boolean> {
+    async create(item: FormDb): Promise<boolean> {
         if(!this.repo) {
             this.repo = getConnection().getRepository(FormDb);
         }
-        return this.repo.save(item).then(() => {
+        return await this.repo.save(item).then(() => {
             return true;
         },
         () => {
@@ -25,15 +25,18 @@ export class FormsRepository implements AbsRepository<FormDb>{ // TODO: refactor
             return false;
         });
     }
-    readAll(): Promise<FormDb[]> {
+    async readAll(): Promise<FormDb[]> {
         if(!this.repo) {
             this.repo = getConnection().getRepository(FormDb);
         }
 
-        return this.repo.find();
+        return await this.repo.find();
     }
-    readOne(item: FormDb): Promise<FormDb> {
-        return this.repo.findOne(item.formName);
+    async readOne(item: FormDb): Promise<FormDb> {
+        if(!this.repo) {
+            this.repo = getConnection().getRepository(FormDb);
+        }
+        return await this.repo.findOne(item.id);
     }
     update(id: string): Promise<boolean> {
         throw new Error("Method not implemented.");

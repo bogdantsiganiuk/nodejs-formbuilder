@@ -20,8 +20,13 @@ class ResponseList extends React.Component{
 
     render(){
         return(
-            <ul>
-                {this.state.responses.map((item) => <li>submission id:{item.id} <ul>{item.formFields.map((field) => <li>fieldId:{field.fieldId}; data:{field.fieldData} </li>)}</ul></li>)}
+            <ul className="submissions">
+                {this.state.responses.map((item) => <li>submission id:{item.id} <ul>{item.formFieldsData.map((field) => 
+                                                            <li className="submission-list">
+                                                                <label>fieldId:{field.id}</label>
+                                                                <label>inputName:{field.inputName}</label>
+                                                                <label> data:{field.data}</label> 
+                                                                </li>)}</ul></li>)}
             </ul>
         )
     }

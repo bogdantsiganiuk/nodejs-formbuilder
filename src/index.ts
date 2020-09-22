@@ -6,10 +6,14 @@ import { FormService } from './services/formService';
 import { FormSubmissionController } from './controllers/formSubmissionController';
 import { FormSubmissionService } from './services/formSubmissionService';
 import { FormSubmissionRepository } from './repository/formSubmissinRepository';
+import { FormReportService } from './services/formReportService';
 
 
 
 validateEnvVariables();
-
-const server = new App([new FormsController(new FormService(new FormsRepository())), new FormSubmissionController(new FormSubmissionService(new FormSubmissionRepository()))],parseInt(process.env.PORT,10));
+const formRepository = new FormsRepository();
+const formSubmissionRepository = new FormSubmissionRepository();
+const formService = new FormService(formRepository);
+const formSubmissionService = new FormSubmissionService(formSubmissionRepository);
+const server = new App([new FormsController(formService), new FormSubmissionController(formSubmissionService, new FormReportService(formService,formSubmissionService))],parseInt(process.env.PORT,10));
 server.listen();

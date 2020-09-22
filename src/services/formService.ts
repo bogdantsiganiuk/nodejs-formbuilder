@@ -29,4 +29,15 @@ export class FormService {
 
         return await this.repo.create(FormsMapper.MapForm(item));
     }
+
+    public async getSpecificForm(formId: string): Promise<Form>{
+        if(!formId){
+            throw new Error("formid is null");
+        }
+
+        const form = new FormDb();
+        form.id = formId;
+
+        return await this.repo.readOne(form);
+    }
 }

@@ -15,11 +15,11 @@ export class FormSubmissionRepository implements AbsRepository<FormSubmissionDb>
     }
 
 
-    create(item: FormSubmissionDb): Promise<boolean> {
+    async create(item: FormSubmissionDb): Promise<boolean> {
         if(!this.repo) {
             this.repo = getConnection().getRepository(FormSubmissionDb);
         }
-        return this.repo.save(item).then(() => {
+        return await this.repo.save(item).then(() => {
             return true;
         },
         (error) => {
@@ -40,14 +40,14 @@ export class FormSubmissionRepository implements AbsRepository<FormSubmissionDb>
     delete(id: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    findAll(item: FormSubmissionDb): Promise<FormSubmissionDb[]> {
+    async findAll(item: FormSubmissionDb): Promise<FormSubmissionDb[]> {
         if(!item){
             throw new Error("item is null");
         }
         if(!this.repo) {
             this.repo = getConnection().getRepository(FormSubmissionDb);
         }
-        return this.repo.find({where: {formId: item.formId}})
+        return await this.repo.find({where: {formId: item.formId}})
     }
 
 }

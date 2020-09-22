@@ -10,25 +10,28 @@ class FormsRepository {
             console.log("Connected to mongodb");
         }).catch(error => console.log(error));
     }
-    create(item) {
+    async create(item) {
         if (!this.repo) {
             this.repo = typeorm_1.getConnection().getRepository(formDb_1.FormDb);
         }
-        return this.repo.save(item).then(() => {
+        return await this.repo.save(item).then(() => {
             return true;
         }, () => {
             // TODO LOG ERROR
             return false;
         });
     }
-    readAll() {
+    async readAll() {
         if (!this.repo) {
             this.repo = typeorm_1.getConnection().getRepository(formDb_1.FormDb);
         }
-        return this.repo.find();
+        return await this.repo.find();
     }
-    readOne(item) {
-        return this.repo.findOne(item.formName);
+    async readOne(item) {
+        if (!this.repo) {
+            this.repo = typeorm_1.getConnection().getRepository(formDb_1.FormDb);
+        }
+        return await this.repo.findOne(item.id);
     }
     update(id) {
         throw new Error("Method not implemented.");

@@ -4,17 +4,23 @@ import { FormSubmissionService } from "../services/formSubmissionService";
 import { FormSubmission } from "../models/formSubmission";
 import { validationMiddleware } from "../middleware/validator";
 import { FormSubmissionDb } from "../db/models/formSubmissionDb";
+import { FormReportService } from "../services/formReportService";
 
 export class FormSubmissionController implements ControllerInterface{
     public router: express.Router;
     public path: string;
     private service: FormSubmissionService;
+    private reportService: FormReportService;
 
-    constructor(service : FormSubmissionService) {
+    constructor(service : FormSubmissionService, reportService: FormReportService) {
         if(!service){
             throw new Error("service is null")
         }
+        if(!reportService){
+            throw new Error("service is null")
+        }
         this.service = service;
+        this.reportService = reportService;
         this.router = express.Router();
         this.path = "/submissions"
         this.initRoutes();
@@ -50,7 +56,7 @@ export class FormSubmissionController implements ControllerInterface{
             throw new Error("formId is not specified")
         }
 
-        const submissions = await this.service.getAllFormSubmissions(req.params.formId);
+        const submissions = await this.reportService.getAllFormSubmissions(req.params.formId);
         if(!submissions){
             throw new Error("Submissions returned null")
         }

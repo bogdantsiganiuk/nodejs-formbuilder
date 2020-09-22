@@ -4,7 +4,7 @@ import React from "react";
 class Create extends React.Component{
     constructor(props){
         super(props);
-        this.state = {formName: "", fields:[{fieldLabel:"",fieldName:"",inputType:"1"}]};
+        this.state = {formName: "", fields:[{fieldLabel:"",inputName:"",inputType:"1"}]};
         this.onAddNewField = this.onAddNewField.bind(this);
         this.onSubmitNewForm = this.onSubmitNewForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -13,7 +13,7 @@ class Create extends React.Component{
 
     onSubmitNewForm(){
         if(!this.state.formName || this.state.fields.filter((item) => {
-            if(!item.fieldLabel || !item.fieldName || !item.inputType)
+            if(!item.fieldLabel || !item.inputName || !item.inputType)
                 return true;
             return false;
         }).length > 0)
@@ -29,15 +29,17 @@ class Create extends React.Component{
                 },
                 body: JSON.stringify({formName: this.state.formName, formFields:this.state.fields})
             }).then((status) => console.log(status));
+            this.props.onCreatedFormClick();
         }
 
-        this.props.onCreatedFormClick();
+        
     }
 
     handleChange(e) {
-        if(["fieldLabel","fieldName","inputType"].includes(e.target.className)){
+        if(["fieldLabel","inputName","inputType"].includes(e.target.className)){
             let oldFields = [...this.state.fields];
             oldFields[e.target.dataset.id][e.target.className] = e.target.value;
+            oldFields[e.target.dataset.id].id = e.target.dataset.id;
             this.setState({fields: oldFields});
         }
         else{
@@ -48,7 +50,7 @@ class Create extends React.Component{
 
     onAddNewField(){
         this.setState((prevState) => ({
-            fields:[...prevState.fields, {fieldLabel:"",fieldName:"",inputType:"1"}]
+            fields:[...prevState.fields, {fieldLabel:"",inputName:"",inputType:"1"}]
         }));
     }
 
@@ -73,7 +75,7 @@ class Create extends React.Component{
                     </div>
                     <div className="formFieldRow-inputName">
                         <label>Input Name:</label>
-                        <input id={inputId} data-id={idx} name={inputName} className="fieldName"></input>
+                        <input id={inputId} data-id={idx} name={inputName} className="inputName"></input>
                     </div>
                     <div className="formFieldRow-inputType">
                         <label>Input Type:</label>

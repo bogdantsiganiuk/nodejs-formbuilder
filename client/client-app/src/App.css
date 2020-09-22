@@ -1,5 +1,8 @@
+#root {width:100%}
+
 .App {
   text-align: center;
+  width:100%
 }
 
 .App-logo {
@@ -36,3 +39,18 @@
     transform: rotate(360deg);
   }
 }
+
+div {display:inline-block; padding :10px; text-align: center;}
+.text-link{display:block;color:blue;text-decoration: underline important!;}
+ul {list-style-type: none;}
+ul > li {padding:5px; display:block}
+ul > li > button {margin:7px}
+.list-group {text-align:center}
+.submission-list{display:block}
+.submission-list > li > label{display:inline-block; padding: 10px}
+.submission-container  label{padding:5px;margin:3px}
+
+.submissions {width:100%}
+.submissions ul {border:2px solid blue}
+.submissions li {display:table;}
+.submissions li > label{display:inline-block;padding:10px}

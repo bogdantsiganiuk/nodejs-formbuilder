@@ -10,7 +10,7 @@ class Form extends React.Component {
     render() {
         return (
             <li className="list-group-item" >
-                <div>
+                
                     <div className="form-id" formid={this.props.formId}>
                         {this.props.formId}
                     </div>
@@ -23,7 +23,7 @@ class Form extends React.Component {
                     <button onClick={() => this.props.onFormSubmissionsClick(this.props.formId)} className="form-button-getall" formname={this.props.formName}>
                         View all submissions
                     </button>
-                </div>
+                
             </li>
         )
     }
