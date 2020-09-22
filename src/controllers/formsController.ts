@@ -18,7 +18,7 @@ export class FormsController implements ControllerInterface {
 
     private initRoutes(){
         this.router.get(this.path, (req,res) => {this.getAllForms(req,res)});
-        this.router.post(this.path + '/create', validationMiddleware(Form), (req,res) => {this.createForm(req,res)});
+        this.router.post(this.path, validationMiddleware(Form), (req,res) => {this.createForm(req,res)});
     }
 
     private async getAllForms(req: express.Request, res: express.Response)    {

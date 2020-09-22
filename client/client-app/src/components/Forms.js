@@ -22,16 +22,19 @@ import "../App.css";
      }
 
      renderAllForms() {
-         return this.state.data.map((form) =><Form formName={form.formName} formFields={form.formFields} formId={form.id} key={form.formName} />)
+         return this.state.data.map((form) =><Form 
+         onFormSubmissionsClick={this.props.onFormSubmissionsClick}
+         onCreateNewFormSubmissionClick={this.props.onCreateNewFormSubmissionClick} 
+                                    formName={form.formName} formFields={form.formFields} 
+                                    formId={form.id} key={form.formName} />)
      }
 
 
      render() {
          return (
              <div>
-         <h1>Hello!</h1>
           {this.state.data.length > 0 &&
-            <ul>
+            <ul className="list-group">
                 {this.renderAllForms()}
             </ul>}
             </div>
