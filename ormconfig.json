@@ -1,7 +1,7 @@
 {
     "type": "mongodb",
-    "host": "localhost",
-    "database": "forms",
+    "url": "mongodb+srv://dbAdmin:Ab123456!@formscluster.cuv2x.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "useNewUrlParser": true,
     "name": "default",
     "synchronize": false,
     "entities": [
